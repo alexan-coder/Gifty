@@ -1,24 +1,35 @@
 require 'sinatra'
 require 'sinatra/reloader'
+require 'active_record'
+require_relative "./models/user"
+require_relative "./models/group"
+require "pry"
 
-require_relative  'config/environments.rb'
-rquire_relative ".models/user"
-require_relative ".models/group"
+ActiveRecord::Base.logger= Logger.new(STDOUT)
+ActiveRecord::Base.establish_connection(
+	:adapter => "postgresql",
+	:host => "localhost",
+	:database => "secret_santa"
+	)
 
-enable :sessions
+binding.pry
+# require_relative  'config/environments.rb'
 
-get '/' do
-return erb :index
-end
 
-post '/signup' do
-return erb :signup
-redirect '/group'
-end
+# enable :sessions
 
-get 'login' do
-return erb :login
-end
+# get '/' do
+# return erb :index
+# end
 
-post 'login' do
-end
+# post '/signup' do
+# return erb :signup
+# redirect '/group'
+# end
+
+# get 'login' do
+# return erb :login
+# end
+
+# post 'login' do
+# end
